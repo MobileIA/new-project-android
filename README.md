@@ -17,6 +17,68 @@ Aqui encontraras los pasos recomendados para crear un proyecto en Android.
 <item name="windowNoTitle">true</item>
 ```
 
+# Activar MultiDex 
+1. Agregar libreria:
+```gradle
+implementation 'com.android.support:multidex:1.0.3'
+```
+2. Crear archivo MainApplication, que herede de MultiDexApplication:
+```java
+public class MainApplication extends MultiDexApplication {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // Configurar Mobileia Lab
+        Mobileia.getInstance().setAppId(Constant.MOBILEIA_LAB_APP_ID);
+    }
+}
+```
+3. Editar el Manifest y para agregar el application:
+```xml
+<application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+```
+4. Editamos el build.gradle:
+```gradle
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
+    defaultConfig {
+        applicationId "com.mobileia.prode"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        // Enabling multidex support.
+        multiDexEnabled true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Enabling multidex support.
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+
+}
+```
+
 # Creación de un modulo publico para integrar con Gradle:
 1. File -> New Module
 2. Seleccionar Android Library
