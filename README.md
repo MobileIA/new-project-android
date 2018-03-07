@@ -8,6 +8,15 @@ Aqui encontraras los pasos recomendados para crear un proyecto en Android.
 5. Iniciar GIT: VCS -> Enable Version Control Integration -> Git
 6. Comitiar los primeros archivos: VCS -> Commit Changes (Aqui seleccionar los archivos necesarios)
 
+# Desactivar ActionBar y Activar la nueva Toolbar
+1. Abrir styles.xml
+2. Agregar dentro de AppTheme:
+```xml
+<!-- Habilitar la Toolbar -->
+<item name="windowActionBar">false</item>
+<item name="windowNoTitle">true</item>
+```
+
 # Creación de un modulo publico para integrar con Gradle:
 1. File -> New Module
 2. Seleccionar Android Library
