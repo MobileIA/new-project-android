@@ -147,3 +147,6 @@ apply from: '../bintrayv1.gradle'
 ./gradlew bintrayUpload
 ```
 10. Si todo fue correcto deberia mostrarse en la consola: "BUILD SUCCESSFUL"
+
+# Librerias Utiles/Recomendadas:
+* MobileIA Core: https://github.com/MobileIA/mia-core-android
