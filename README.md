@@ -132,7 +132,27 @@ class HashCategory : RealmObject() {
     var image: String? = ""
     var items: RealmList<HashItem> = RealmList<HashItem>()
 }
+```
+2. Crear archivo de Modulo, donde vamos a especificar las clases que debe utilizar:
+```kotlin
+@RealmModule(library = false, allClasses = false, classes = [Category::class, Item::class])
+class AppRealmModule {
+}
+```
+3. Crear Archivo de Base:
+```kotlin
+class BaseRealm {
 
+    fun getInstance() : Realm {
+        return Realm.getInstance(
+            RealmConfiguration.Builder()
+                .name("app.realm")
+                .modules(AppRealmModule())
+                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .build())
+    }
+}
 ```
 
 # Utilizando Retrofit & RXJava
