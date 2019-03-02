@@ -17,10 +17,30 @@ Aqui encontraras los pasos recomendados para crear un proyecto en Android.
 <item name="windowNoTitle">true</item>
 ```
 
-# Activar MultiDex 
+# Crear Clase para las Constantes:
+1. Crear archivo "Constant", aqui se pueden guardar las KEYs de las APIs, y otros datos importantes que pueden variar dependiendo el entorno.
+```kotlin
+class Constant {
+    
+    companion object {
+        @JvmField
+        val MOBILEIA_APP_ID = 52423
+    }
+}
+```
+
+# agregar libreria base MobileIA
+1. Agregar dependencias:
+```gradle
+implementation 'com.mobileia:core:0.0.26'
+```
+
+# Activar MultiDex ()
 1. Agregar libreria:
 ```gradle
 implementation 'com.android.support:multidex:1.0.3'
+
+implementation 'androidx.multidex:multidex:2.0.1' (AndroidX)
 ```
 2. Crear archivo MainApplication, que herede de MultiDexApplication:
 ```java
@@ -31,6 +51,16 @@ public class MainApplication extends MultiDexApplication {
         super.onCreate();
         // Configurar Mobileia Lab
         Mobileia.getInstance().setAppId(Constant.MOBILEIA_LAB_APP_ID);
+    }
+}
+```
+```kotlin
+class MainApplication: MultiDexApplication() {
+
+    override fun onCreate() {
+        super.onCreate()
+        // Configuramos MobileIA Lab
+        Mobileia.getInstance().appId = Constant.MOBILEIA_APP_ID
     }
 }
 ```
@@ -78,6 +108,8 @@ android {
 
 }
 ```
+
+
 
 # Creación de un modulo publico para integrar con Gradle:
 1. File -> New Module
@@ -147,6 +179,15 @@ apply from: '../bintrayv1.gradle'
 ./gradlew bintrayUpload
 ```
 10. Si todo fue correcto deberia mostrarse en la consola: "BUILD SUCCESSFUL"
+11. Si tienes problemas al subir una libreria con archivos Kotlin, agregar siguiente Linea en el Build.gradle del Grupo:
+```gradle
+allprojects {
+    ...
+
+    tasks.withType(Javadoc).all { enabled = false }
+}
+```
 
 # Librerias Utiles/Recomendadas:
 * MobileIA Core: https://github.com/MobileIA/mia-core-android
+* MobileIA Helpers: https://github.com/MobileIA/helper-android (Deprecated)
