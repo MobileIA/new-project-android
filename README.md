@@ -109,6 +109,71 @@ android {
 }
 ```
 
+# Utilizando Realm
+1. Crear entidad:
+```kotlin
+@RealmClass
+class HashItem : RealmObject() {
+
+    @PrimaryKey
+    var id: Int = 0
+    var category_id: Int = 0
+    var title: String? = ""
+    var caption: String? = ""
+    var language: Int = 0
+}
+
+@RealmClass
+class HashCategory : RealmObject() {
+
+    @PrimaryKey
+    var id: Int = 0
+    var title: String? = ""
+    var image: String? = ""
+    var items: RealmList<HashItem> = RealmList<HashItem>()
+}
+
+```
+
+# Utilizando Retrofit & RXJava
+1. Crear archivo base para todos los Servicios:
+```kotlin
+class BaseRest : MobileiaRest() {
+
+    fun userService(): UserService {
+        return createService(UserService::class.java)
+    }
+
+    override fun getBaseUrl(): String {
+        return Constant.BASE_API_URL
+    }
+
+}
+```
+2. Creacion de un Servicio donde se agregan los diferentes endpoints de la API:
+```kotlin
+interface UserService {
+
+    @FormUrlEncoded
+    @POST("user/add")
+    fun createUser(@Field("email") email: String, @Field("password") password: String): Observable<User>
+}
+```
+3. Usar API:
+```kotlin
+BaseRest().userService().createUser("mimail@mobileia.com", "123456")
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { response ->
+
+                if(response.success){
+                    txtMain.text = "Respuesta Correcta - : " + response.id
+                }else {
+                    txtMain.text = "Respuesta Incorrecta"
+                }
+
+            }
+```
 
 
 # Creación de un modulo publico para integrar con Gradle:
