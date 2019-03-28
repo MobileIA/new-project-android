@@ -32,7 +32,7 @@ class Constant {
 # agregar libreria base MobileIA
 1. Agregar dependencias:
 ```gradle
-implementation 'com.mobileia:core:0.0.27'
+implementation 'com.mobileia:core:0.0.30'
 ```
 
 # Activar MultiDex ()
@@ -106,6 +106,22 @@ android {
     }
 
 
+}
+```
+# Utilizando Splash
+1. Crear activity: 
+```kotlin
+class StartActivity : SplashActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+    }
+
+    override fun onCompleted() {
+        // Ir a la siguiente pantalla
+        ActivityHelper.createInstance(this, OnboardingActivity::class.java)
+    }
 }
 ```
 
