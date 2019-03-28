@@ -32,7 +32,7 @@ class Constant {
 # agregar libreria base MobileIA
 1. Agregar dependencias:
 ```gradle
-implementation 'com.mobileia:core:0.0.30'
+implementation 'com.mobileia:core:0.0.31'
 ```
 
 # Activar MultiDex ()
