@@ -211,6 +211,20 @@ BaseRest().userService().createUser("mimail@mobileia.com", "123456")
             }
 ```
 
+# Como cambiar color de fondo de un boton:
+```xml
+<Button
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+
+        app:backgroundTint="@color/entry_blue"
+        
+
+        android:text="@string/home_menu_notificaciones"
+        android:textColor="@android:color/white" />
+```
 
 # Creación de un modulo publico para integrar con Gradle:
 1. File -> New Module
